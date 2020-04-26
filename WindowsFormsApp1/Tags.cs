@@ -11,10 +11,14 @@ namespace WindowsFormsApp1
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Tags
     {
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string name { get; set; }
     }
 }

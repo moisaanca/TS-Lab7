@@ -11,13 +11,20 @@ namespace WindowsFormsApp1
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Picture
     {
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string full_name { get; set; }
+        [DataMember]
         public string path { get; set; }
+        [DataMember]
         public System.DateTime created_at { get; set; }
+        [DataMember]
         public bool deleted { get; set; }
     }
 }

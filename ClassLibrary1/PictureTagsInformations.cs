@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1;
+using WindowsFormsApp1.API;
 
 namespace ClassLibrary1
 {
@@ -11,37 +12,44 @@ namespace ClassLibrary1
     {
         Picture InterfacePicture.createPicture(string path)
         {
-            throw new NotImplementedException();
+            PictureService pictureService = new PictureService();
+            return pictureService.createPicture(path);
         }
 
         Tags InterfaceTags.createTags(string name)
         {
-            throw new NotImplementedException();
+            TagsService tagsService = new TagsService();
+            return tagsService.createTags(name);
         }
 
         void InterfacePicture.deletePicture(string path)
         {
-            throw new NotImplementedException();
+            PictureService pictureService = new PictureService();
+            pictureService.deletePicture(path);
         }
 
         Informations InterfaceInformations.saveInformations(string path, string tag, string value)
         {
-            throw new NotImplementedException();
+            InformationsService informationsService = new InformationsService();
+            return informationsService.saveInformations(path, tag, value);
         }
 
         List<string> InterfaceInformations.displaySearchResults(string description, string tag)
         {
-            throw new NotImplementedException();
+            InformationsService informationsService = new InformationsService();
+            return informationsService.displaySearchResults(description, tag);
         }
 
         List<string> InterfaceTags.getTags()
         {
-            throw new NotImplementedException();
+            TagsService tagsService = new TagsService();
+            return tagsService.getTags();
         }
 
         Tags InterfaceTags.saveTag(string name)
         {
-            throw new NotImplementedException();
+            TagsService tagsService = new TagsService();
+            return tagsService.saveTag(name);
         }
     }
 }
