@@ -13,16 +13,16 @@ namespace WindowsFormsApp1
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
-    [DataContract(IsReference = true)]
+    
     public partial class Informations
     {
-        [DataMember]
+        
         public int Id { get; set; }
-        [DataMember]
+        
         public string description { get; set; }
-        [DataMember]
+        
         public virtual Tags tag_id { get; set; }
-        [DataMember]
+        
         public virtual Picture picture_id { get; set; }
     }
 }

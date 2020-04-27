@@ -8,24 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ConsoleApp1;
 using System.ServiceModel;
-using ClassLibrary1;
+using WindowsFormsApp2.ServiceReference1;
 
 namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
-        public InterfacePictureTagsInformationsClient client = new InterfacePictureTagsInformationsClient();
-        private ServiceHost serviceHost;
+        ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
         public Form1()
             {
                 InitializeComponent();
-            serviceHost = new ServiceHost(typeof(ConsoleApp1.Program));
-            serviceHost.Open();
-            string[] tags = client.getTags();
-            foreach(string tag in tags)
-            {
+           
+            foreach(String tag  in client.getTags()){
                 comboBoxTags.Items.Add(tag);
             }
         }
@@ -95,13 +90,19 @@ namespace WindowsFormsApp2
 
             private void buttonSearchPhotos_Click(object sender, EventArgs e)
             {
-                //Form2 f2 = new Form2();
-                //f2.ShowDialog();
+                Form2 f2 = new Form2();
+                f2.ShowDialog();
             }
 
             private void pictureBox_Click(object sender, EventArgs e)
             {
 
             }
+
+        private void buttonSearchPhotos_Click_1(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            f2.ShowDialog();
         }
+    }
 }

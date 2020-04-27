@@ -21,8 +21,10 @@ namespace WindowsFormsApp1.API
 
         public void deletePicture(String path)
         {
+
             using (Model1Container context = new Model1Container())
             {
+                context.Configuration.ProxyCreationEnabled = false;
                 context.Picture.Single(a => a.path == path).deleted = true;
                 context.SaveChanges();
             }

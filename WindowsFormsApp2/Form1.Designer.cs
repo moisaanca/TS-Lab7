@@ -50,6 +50,7 @@
             this.buttonSearchPhotos.TabIndex = 22;
             this.buttonSearchPhotos.Text = "Search photos";
             this.buttonSearchPhotos.UseVisualStyleBackColor = true;
+            this.buttonSearchPhotos.Click += new System.EventHandler(this.buttonSearchPhotos_Click_1);
             // 
             // textBoxTagValue
             // 

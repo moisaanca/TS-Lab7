@@ -15,6 +15,7 @@ namespace WindowsFormsApp1.API
             
             using (Model1Container context = new Model1Container())
             {
+                context.Configuration.ProxyCreationEnabled = false;
                 Tags tagFomDB = context.TagsSet
                     .Where(t => t.name == tag)
                     .FirstOrDefault();
@@ -46,6 +47,7 @@ namespace WindowsFormsApp1.API
             {
                 using (Model1Container context = new Model1Container())
                 {
+                    context.Configuration.ProxyCreationEnabled = false;
                     List<Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.description.Contains(description) && info.picture_id.deleted == false).ToList();
                     infos.ForEach(delegate (Informations info) { results.Add(info.picture_id.path); });
                 }
@@ -55,6 +57,7 @@ namespace WindowsFormsApp1.API
             {
                 using (Model1Container context = new Model1Container())
                 {
+                    context.Configuration.ProxyCreationEnabled = false;
                     List<Informations> infos = context.InformationsSet.Where(info => info.description.Contains(description) && info.picture_id.deleted == false).ToList();
                     infos.ForEach(delegate (Informations info) { results.Add(info.picture_id.path); });
                 }
@@ -64,6 +67,7 @@ namespace WindowsFormsApp1.API
             {
                 using (Model1Container context = new Model1Container())
                 {
+                    context.Configuration.ProxyCreationEnabled = false;
                     List<Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.picture_id.deleted == false).ToList();
                     infos.ForEach(delegate (Informations info) { results.Add(info.picture_id.path); });
                 }
