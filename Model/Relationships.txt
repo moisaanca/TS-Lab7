@@ -1,0 +1,19 @@
+1. Descrierea tabelelor 
+	Conform  diagramei vom avea 3 tabele: Picture, Tag si Information. In tabelul Picture vom retine informatii despre toate imaginile ce vor fi inregistrate in aplicatia noastra(path-ul complet, data la care a fost adaugata) In lus va exista in tabelul Piture o coloana numita `deleted` care va specifica daca o imagine a fost stearsa sau nu, si cum nu se cere implementarea unui hard delete vom folosi acest boolean pe post de flag care ne va spune daca imaginea a fost sau nu stearsa. In tabelul tags se va retine lista cu numele tuturor caracteristicior adaugate pentru o imagine (e.g: persoana, loc, eveniment, data in care a fost facuta fotografia). Am creat acest tabel deoarece avem nevoie sa adaugam in orice moment in mod dinamic o noua categorie de informatii. In tabelul informations vom avea valorile caracterizarilor (tag-urilor) pentru fiecare fotografie. In tabel avem referinta catre Id-ul fotografiei pentru care adaugam respectivele informatii, Id-ul tag-ului (tipul caracteristicii) si un String in care retinem valoarea caracteristicii (e.g: numele unei persoane, locul in care a fost facuta o fotografie, etc).
+
+2.Metode ce vor trebui implementate
+	public Picture createPicture(string path) -> metoda care va fi apelata in momentul in care se selecteaza path-ul unei imagini si care creeaza o entitate Picture ce urmeaza a fi salvata in baza de date
+	
+	public void deletePicture(String path) -> metoda care "sterge" o imagine. Stergerea nu este propriu-zisa, metoda de delete doar updateaza un flag din baza de date(o marcheaza ca stearsa prin setarea flag-ului `deleted` din tabelul Picture pe true).
+	
+	public Tags createTags(string name) -> metoda care creeaza un nou tip de caracterizare.
+	
+	public List<String> getTags() -> metoda care returneaza o lista cu toate numele tagurilor din baza de date.
+	
+	public Tags saveTag(String name) -> metoda ce salveaza un nou tag in baza de date.
+	
+	public Informations saveInformations(string path,String tag, String value) -> metoda care adauga informatiile legate de o anumita caracterizare pentru o imagine in baza de date
+	
+	public void DeletePicture(String path) -> metoda care "sterge" o imagine din baza de date (o marcheaza ca stearsa prin setarea flag-ului `deleted` din tabelul Picture pe true)
+	
+	public List<String> displaySearchResults(String description, String tag) -> metoda care returneaza lista cu imaginile care respecta anumite criterii (metoda folosita in momentul in care se doreste sa se faca search dupa o anumita proprietate).

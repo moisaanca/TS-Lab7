@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="InformationsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="tag_id_Id" Type="int" Nullable="false" />
+          <Property Name="picture_id_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="path" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TagsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_InformationsTags">
+          <End Role="TagsSet" Type="Self.TagsSet" Multiplicity="1" />
+          <End Role="InformationsSet" Type="Self.InformationsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InformationsSet">
+              <PropertyRef Name="tag_id_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PictureInformations">
+          <End Role="Picture" Type="Self.Picture" Multiplicity="1" />
+          <End Role="InformationsSet" Type="Self.InformationsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Picture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InformationsSet">
+              <PropertyRef Name="picture_id_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="InformationsSet" EntityType="Self.InformationsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagsSet" EntityType="Self.TagsSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_InformationsTags" Association="Self.FK_InformationsTags">
+            <End Role="TagsSet" EntitySet="TagsSet" />
+            <End Role="InformationsSet" EntitySet="InformationsSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PictureInformations" Association="Self.FK_PictureInformations">
+            <End Role="Picture" EntitySet="Picture" />
+            <End Role="InformationsSet" EntitySet="InformationsSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Picture" EntityType="Model1.Picture" />
+          <EntitySet Name="TagsSet" EntityType="Model1.Tags" />
+          <EntitySet Name="InformationsSet" EntityType="Model1.Informations" />
+          <AssociationSet Name="InformationsTags" Association="Model1.InformationsTags">
+            <End Role="Informations" EntitySet="InformationsSet" />
+            <End Role="Tags" EntitySet="TagsSet" />
+          </AssociationSet>
+          <AssociationSet Name="PictureInformations" Association="Model1.PictureInformations">
+            <End Role="Picture" EntitySet="Picture" />
+            <End Role="Informations" EntitySet="InformationsSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="path" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Informations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tag_id" Relationship="Model1.InformationsTags" FromRole="Informations" ToRole="Tags" />
+          <NavigationProperty Name="picture_id" Relationship="Model1.PictureInformations" FromRole="Informations" ToRole="Picture" />
+        </EntityType>
+        <Association Name="InformationsTags">
+          <End Type="Model1.Informations" Role="Informations" Multiplicity="*" />
+          <End Type="Model1.Tags" Role="Tags" Multiplicity="1" />
+        </Association>
+        <Association Name="PictureInformations">
+          <End Type="Model1.Picture" Role="Picture" Multiplicity="1" />
+          <End Type="Model1.Informations" Role="Informations" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Picture">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Picture)">
+        <MappingFragment StoreEntitySet="Picture">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="deleted" ColumnName="deleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Tags)">
+        <MappingFragment StoreEntitySet="TagsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InformationsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Informations)">
+        <MappingFragment StoreEntitySet="InformationsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="InformationsTags" TypeName="Model1.InformationsTags" StoreEntitySet="InformationsSet">
+      <EndProperty Name="Tags">
+        <ScalarProperty Name="Id" ColumnName="tag_id_Id" />
+      </EndProperty>
+      <EndProperty Name="Informations">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PictureInformations" TypeName="Model1.PictureInformations" StoreEntitySet="InformationsSet">
+      <EndProperty Name="Picture">
+        <ScalarProperty Name="Id" ColumnName="picture_id_Id" />
+      </EndProperty>
+      <EndProperty Name="Informations">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
