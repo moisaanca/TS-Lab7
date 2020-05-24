@@ -18,8 +18,12 @@ namespace WindowsFormsApp1
         public Model1Container()
             : base("name=Model1Container")
         {
+            // Inhibare: lazy loading si creare proxy dinamic.
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
-    
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

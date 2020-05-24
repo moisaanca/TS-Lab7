@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ServiceReference1
+namespace ServiceReference2
 {
     using System.Runtime.Serialization;
     
@@ -59,9 +59,9 @@ namespace ServiceReference1
         
         private string descriptionField;
         
-        private ServiceReference1.Picture picture_idField;
+        private ServiceReference2.Picture picture_idField;
         
-        private ServiceReference1.Tags tag_idField;
+        private ServiceReference2.Tags tag_idField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int Id
@@ -90,7 +90,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public ServiceReference1.Picture picture_id
+        public ServiceReference2.Picture picture_id
         {
             get
             {
@@ -103,7 +103,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public ServiceReference1.Tags tag_id
+        public ServiceReference2.Tags tag_id
         {
             get
             {
@@ -236,7 +236,7 @@ namespace ServiceReference1
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference2.IService1")]
     public interface IService1
     {
         
@@ -244,38 +244,41 @@ namespace ServiceReference1
         System.Threading.Tasks.Task<string> GetDataAsync(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ServiceReference1.CompositeType composite);
+        System.Threading.Tasks.Task<ServiceReference2.CompositeType> GetDataUsingDataContractAsync(ServiceReference2.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/saveInformations", ReplyAction="http://tempuri.org/IService1/saveInformationsResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.Informations> saveInformationsAsync(string path, string tag, string value);
+        System.Threading.Tasks.Task<ServiceReference2.Informations> saveInformationsAsync(string path, string tag, string value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/displaySearchResults", ReplyAction="http://tempuri.org/IService1/displaySearchResultsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<string>> displaySearchResultsAsync(string description, string tag);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/createPicture", ReplyAction="http://tempuri.org/IService1/createPictureResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.Picture> createPictureAsync(string path);
+        System.Threading.Tasks.Task<ServiceReference2.Picture> createPictureAsync(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/deletePicture", ReplyAction="http://tempuri.org/IService1/deletePictureResponse")]
         System.Threading.Tasks.Task deletePictureAsync(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/createTags", ReplyAction="http://tempuri.org/IService1/createTagsResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.Tags> createTagsAsync(string name);
+        System.Threading.Tasks.Task<ServiceReference2.Tags> createTagsAsync(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getTags", ReplyAction="http://tempuri.org/IService1/getTagsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<string>> getTagsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/saveTag", ReplyAction="http://tempuri.org/IService1/saveTagResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.Tags> saveTagAsync(string name);
+        System.Threading.Tasks.Task<ServiceReference2.Tags> saveTagAsync(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPicturesByTagMetod", ReplyAction="http://tempuri.org/IService1/GetPicturesByTagMetodResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<ServiceReference2.Informations>> GetPicturesByTagMetodAsync(string description, string tag);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public interface IService1Channel : ServiceReference1.IService1, System.ServiceModel.IClientChannel
+    public interface IService1Channel : ServiceReference2.IService1, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public partial class Service1Client : System.ServiceModel.ClientBase<ServiceReference1.IService1>, ServiceReference1.IService1
+    public partial class Service1Client : System.ServiceModel.ClientBase<ServiceReference2.IService1>, ServiceReference2.IService1
     {
         
         /// <summary>
@@ -323,12 +326,12 @@ namespace ServiceReference1
             return base.Channel.GetDataAsync(value);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ServiceReference1.CompositeType composite)
+        public System.Threading.Tasks.Task<ServiceReference2.CompositeType> GetDataUsingDataContractAsync(ServiceReference2.CompositeType composite)
         {
             return base.Channel.GetDataUsingDataContractAsync(composite);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.Informations> saveInformationsAsync(string path, string tag, string value)
+        public System.Threading.Tasks.Task<ServiceReference2.Informations> saveInformationsAsync(string path, string tag, string value)
         {
             return base.Channel.saveInformationsAsync(path, tag, value);
         }
@@ -338,7 +341,7 @@ namespace ServiceReference1
             return base.Channel.displaySearchResultsAsync(description, tag);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.Picture> createPictureAsync(string path)
+        public System.Threading.Tasks.Task<ServiceReference2.Picture> createPictureAsync(string path)
         {
             return base.Channel.createPictureAsync(path);
         }
@@ -348,7 +351,7 @@ namespace ServiceReference1
             return base.Channel.deletePictureAsync(path);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.Tags> createTagsAsync(string name)
+        public System.Threading.Tasks.Task<ServiceReference2.Tags> createTagsAsync(string name)
         {
             return base.Channel.createTagsAsync(name);
         }
@@ -358,9 +361,14 @@ namespace ServiceReference1
             return base.Channel.getTagsAsync();
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.Tags> saveTagAsync(string name)
+        public System.Threading.Tasks.Task<ServiceReference2.Tags> saveTagAsync(string name)
         {
             return base.Channel.saveTagAsync(name);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<ServiceReference2.Informations>> GetPicturesByTagMetodAsync(string description, string tag)
+        {
+            return base.Channel.GetPicturesByTagMetodAsync(description, tag);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

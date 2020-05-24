@@ -1,0 +1,28 @@
+﻿@page "{name}"
+@model WebApplication1.Pages.Informations.FilterModel
+@{
+    ViewData["Title"] = "Filter";
+}
+
+<h4>Results</h4>
+<h3>Total number of pictures: @Model.Informations.Count</h3>
+<hr />
+@foreach (var path in Model.Informations)
+{
+    <dl class="row">
+        <dt class="col-sm-2">
+            <img src="@Url.Content(@path.picture_id.path)" alt="@Url.Content(@path.picture_id.path)" />
+        </dt>
+    </dl>
+
+    @Html.DisplayNameFor(model => path.description)
+    <p>@path.description</p>
+
+    @Html.DisplayNameFor(model => path.tag_id.name)
+    <p>@path.tag_id.name</p>
+
+}
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

@@ -39,6 +39,9 @@ namespace InformationsTagsPictures
         [OperationContract]
         Tags saveTag(String name);
 
+        [OperationContract]
+        List<Informations> GetPicturesByTagMetod(String description, String tag);
+
         // TODO: Add your service operations here
     }
 

@@ -181,7 +181,7 @@ namespace InformationsTagsPictures
                 using (Model1Container context = new Model1Container())
                 {
                     context.Configuration.ProxyCreationEnabled = false;
-                    List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.description.Contains(description) && info.picture_id.deleted == false).ToList();
+                    List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.description.Contains(description) && info.picture_id.deleted == false).Include(info => info.picture_id).Include(info => info.tag_id).ToList();
                     infos.ForEach(delegate (WindowsFormsApp1.Informations info) { results.Add(info.picture_id.path); });
                 }
             }
@@ -191,7 +191,7 @@ namespace InformationsTagsPictures
                 using (Model1Container context = new Model1Container())
                 {
                     context.Configuration.ProxyCreationEnabled = false;
-                    List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.description.Contains(description) && info.picture_id.deleted == false).ToList();
+                    List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.description.Contains(description) && info.picture_id.deleted == false).Include(info => info.picture_id).Include(info => info.tag_id).ToList();
                     infos.ForEach(delegate (WindowsFormsApp1.Informations info) { results.Add(info.picture_id.path); });
                 }
             }
@@ -201,11 +201,122 @@ namespace InformationsTagsPictures
                 using (Model1Container context = new Model1Container())
                 {
                     context.Configuration.ProxyCreationEnabled = false;
-                    List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.picture_id.deleted == false).ToList();
+                   context.Configuration.LazyLoadingEnabled = false;
+                    List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.picture_id.deleted == false).Include(info => info.picture_id).Include(info => info.tag_id).ToList();
                     infos.ForEach(delegate (WindowsFormsApp1.Informations info) { results.Add(info.picture_id.path); });
                 }
             }
             return results;
         }
+    
+
+    public List<Informations> GetPicturesByTagMetod(String description, String tag)
+    {
+        List<Informations> results = new List<Informations>();
+        var configInfo = new MapperConfiguration(cfg => {
+            cfg.CreateMap<WindowsFormsApp1.Informations, Informations>();
+        });
+        IMapper mapperInfo = configInfo.CreateMapper();
+            var configPic = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Picture, WindowsFormsApp1.Picture>();
+            });
+            IMapper mapperPicture = configPic.CreateMapper();
+            var configTag = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Tags, WindowsFormsApp1.Tags>();
+            });
+            IMapper mapperTag = configTag.CreateMapper();
+
+            if (tag != "" && description != "" && tag!= null && description != null)
+        {
+            using (Model1Container context = new Model1Container())
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.description.Contains(description) && info.picture_id.deleted == false).Include(info => info.picture_id).Include(info => info.tag_id).ToList();
+                    foreach (WindowsFormsApp1.Informations info in infos)
+                    {
+                        Tags tagInfo = new Tags();
+                        tagInfo.Id = info.tag_id.Id;
+                        tagInfo.name = info.tag_id.name;
+                        //mapperTag.Map<WindowsFormsApp1.Tags, Tags>(info.tag_id);
+                        Picture pictureInfo = new Picture();
+                        pictureInfo.created_at = info.picture_id.created_at;
+                        pictureInfo.deleted = info.picture_id.deleted;
+                        pictureInfo.full_name = info.picture_id.full_name;
+                        pictureInfo.Id = info.picture_id.Id;
+                        pictureInfo.path = info.picture_id.path;
+                        //mapperTag.Map<WindowsFormsApp1.Picture, Picture>(info.picture_id);
+                        Informations informations = new Informations();
+                        informations.description = info.description;
+                        informations.Id = info.Id;
+                        informations.picture_id = pictureInfo;
+                        informations.tag_id = tagInfo;
+                        results.Add(informations);
+                    }
+                }
+        }
+
+        if (description != "" && description != null && (tag == null || tag == ""))
+        {
+            using (Model1Container context = new Model1Container())
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.description.Contains(description) && info.picture_id.deleted == false).Include(info => info.picture_id).Include(info => info.tag_id).ToList();
+                    foreach (WindowsFormsApp1.Informations info in infos)
+                    {
+                        Tags tagInfo = new Tags();
+                        tagInfo.Id = info.tag_id.Id;
+                        tagInfo.name = info.tag_id.name;
+                        //mapperTag.Map<WindowsFormsApp1.Tags, Tags>(info.tag_id);
+                        Picture pictureInfo = new Picture();
+                        pictureInfo.created_at = info.picture_id.created_at;
+                        pictureInfo.deleted = info.picture_id.deleted;
+                        pictureInfo.full_name = info.picture_id.full_name;
+                        pictureInfo.Id = info.picture_id.Id;
+                        pictureInfo.path = info.picture_id.path;
+                        //mapperTag.Map<WindowsFormsApp1.Picture, Picture>(info.picture_id);
+                        Informations informations = new Informations();
+                        informations.description = info.description;
+                        informations.Id = info.Id;
+                        informations.picture_id = pictureInfo;
+                        informations.tag_id = tagInfo;
+                        results.Add(informations);
+                    }
+                }
+        }
+
+        if (tag != "" && tag != null && (description == null || description == ""))
+        {
+            using (Model1Container context = new Model1Container())
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                context.Configuration.LazyLoadingEnabled = false;
+                List<WindowsFormsApp1.Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.picture_id.deleted == false).Include(info => info.picture_id).Include(info => info.tag_id).ToList();
+
+                foreach(WindowsFormsApp1.Informations info in infos)
+                    {
+                        Tags tagInfo = new Tags();
+                        tagInfo.Id = info.tag_id.Id;
+                        tagInfo.name = info.tag_id.name;
+                        //mapperTag.Map<WindowsFormsApp1.Tags, Tags>(info.tag_id);
+                        Picture pictureInfo = new Picture();
+                        pictureInfo.created_at = info.picture_id.created_at;
+                        pictureInfo.deleted = info.picture_id.deleted;
+                        pictureInfo.full_name = info.picture_id.full_name;
+                        pictureInfo.Id = info.picture_id.Id;
+                        pictureInfo.path = info.picture_id.path;
+                            //mapperTag.Map<WindowsFormsApp1.Picture, Picture>(info.picture_id);
+                        Informations informations = new Informations();
+                        informations.description = info.description;
+                        informations.Id = info.Id;
+                        informations.picture_id = pictureInfo;
+                        informations.tag_id = tagInfo;
+                        results.Add(informations);
+                    }
+
+                //infos.ForEach(delegate (WindowsFormsApp1.Informations info) { results.Add(mapperInfo.Map<WindowsFormsApp1.Informations, Informations>(info)); });
+            }
+        }
+        return results;
     }
+}
 }

@@ -1,0 +1,39 @@
+﻿@page
+@model WebApplication1.Pages.Informations.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+ 
+    <form asp-page="./Filter" asp-route-name="@Model.SearchString">
+        <p>
+            Description value: <input type="text" asp-for="SearchString" />
+                               <input type="submit" value="Filter" />
+            
+        </p>
+    </form>
+
+<h1>Tags</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tags[0].name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Tags)
+        {
+            <tr style="font-size:medium">
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-name="@item.name">Show images</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

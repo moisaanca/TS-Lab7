@@ -67,9 +67,13 @@ namespace WindowsFormsApp1.API
             {
                 using (Model1Container context = new Model1Container())
                 {
-                    context.Configuration.ProxyCreationEnabled = false;
-                    List<Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.picture_id.deleted == false).ToList();
-                    infos.ForEach(delegate (Informations info) { results.Add(info.picture_id.path); });
+                    context.Configuration.LazyLoadingEnabled = false;
+                    List<Informations> infos = context.InformationsSet.Where(info => info.tag_id.name.Equals(tag) && info.picture_id.deleted == false).Include(info => info.picture_id).Include(info => info.tag_id).ToList();
+                    //infos.ForEach(delegate (Informations info) { results.Add(info.picture_id.path); });
+                    foreach(Informations info in infos)
+                    {
+                        results.Add(info.picture_id.path);
+                    }
                 }
             }
             return results;
