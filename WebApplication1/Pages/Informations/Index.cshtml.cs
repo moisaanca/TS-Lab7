@@ -24,6 +24,7 @@ namespace WebApplication1.Pages.Informations
         public async Task OnGetAsync()
         {
             var posts = await service1Client.getTagsAsync();
+            posts.Sort();
             foreach (var item in posts)
             {
                 TagsDTO tag = new TagsDTO();
